@@ -1,0 +1,147 @@
+package com.cyberviy.ViyP;
+
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.ProgressBar;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.cyberviy.ViyP.ui.password.PasswordViewModel;
+
+public class Settings extends AppCompatActivity {
+    SharedPreferences sharedPreferences = null;
+    String PREF_NAME = "Settings";
+    String PREF_KEY = "MASTER_PASSWORD";
+    String NO_DATA = "NO DATA";
+    String TYPE_PASS_1 = "PIN";
+    String TYPE_PASS_2 = "Password";
+    TextView change_password, export_data, delete_data, about_app;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.settings_activity);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        change_password = findViewById(R.id.change_master_password);
+        export_data = findViewById(R.id.export_data);
+        delete_data = findViewById(R.id.delete_all_data);
+        about_app = findViewById(R.id.about_app);
+        final Switch simpleSwitch = findViewById(R.id.ask_password_launch);
+        final boolean switchState = sharedPreferences.getBoolean(PREF_KEY, true);
+        final boolean status = sharedPreferences.getBoolean(NO_DATA, false);
+        simpleSwitch.setChecked(switchState);
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        simpleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // ask for password
+                    setPassword();
+                    editor.putBoolean(PREF_KEY, true).apply();
+                } else {
+                    // remove password
+                    removePassword();
+                    editor.putBoolean(PREF_KEY, false).apply();
+                }
+            }
+        });
+    }
+
+    private void setPassword() {
+        Toast.makeText(getApplicationContext(), "SET", Toast.LENGTH_SHORT).show();
+    }
+
+    private void removePassword() {
+        Toast.makeText(getApplicationContext(), "Removed", Toast.LENGTH_SHORT).show();
+    }
+
+    public void changePassword(View view) {
+        TextView PIN = findViewById(R.id.change_master_password_option_1);
+        TextView Password = findViewById(R.id.change_master_password_option_2);
+        PIN.setVisibility(View.VISIBLE);
+        Password.setVisibility(View.VISIBLE);
+    }
+
+    public void changePasswordToPIN(View view) {
+        Intent intent = new Intent(getApplicationContext(), ChangePassActivity.class);
+        intent.putExtra(ChangePassActivity.EXTRA_TYPE_PASS, TYPE_PASS_1);
+        startActivity(intent);
+    }
+
+    public void changePasswordToPassword(View view) {
+        Intent intent = new Intent(getApplicationContext(), ChangePassActivity.class);
+        intent.putExtra(ChangePassActivity.EXTRA_TYPE_PASS, TYPE_PASS_2);
+        startActivity(intent);
+    }
+
+    public void exportData(View view) {
+        Toast.makeText(getApplicationContext(), "Export successful", Toast.LENGTH_SHORT).show();
+    }
+
+    public void deleteData(View view) {
+        //AlertDialog START
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        // Setting Alert Dialog Title
+        alertDialogBuilder.setTitle("Delete Everything");
+        // Setting Alert Dialog Message
+        alertDialogBuilder.setMessage("Are you sure??? You want to delete everything?");
+        alertDialogBuilder.setCancelable(false);
+        //Positive button
+        alertDialogBuilder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                PasswordViewModel passwordViewModel = new PasswordViewModel(getApplication());
+                ProgressBar progressBar = findViewById(R.id.progress_bar);
+                progressBar.setVisibility(View.VISIBLE);
+                passwordViewModel.deleteAllNotes();
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(NO_DATA, false).apply();
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_SHORT).show();
+            }
+        });
+        //Negative button
+        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
+        //AlertDialog END
+
+    }
+
+    public void aboutApp(View view) {
+        startActivity(new Intent(this, AboutActivity.class));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; goto parent activity.
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+}
