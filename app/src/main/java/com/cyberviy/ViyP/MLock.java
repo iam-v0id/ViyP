@@ -91,7 +91,7 @@ public class MLock extends AppCompatActivity {
                 super.onAuthenticationSucceeded(result);
 
 //Print a message to Logcat//
-
+                startActivity(new Intent(MLock.this, Home.class));
                 Log.d(TAG, "Fingerprint recognised successfully");
             }
 
