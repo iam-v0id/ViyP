@@ -77,6 +77,8 @@ dependencies {
     //cardview
     implementation 'androidx.cardview:cardview:1.0.0'
 
+    //BIO
+    implementation 'androidx.biometric:biometric:1.0.1'
 
     implementation "androidx.core:core-ktx:+"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"

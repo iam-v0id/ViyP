@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cyberviy.ViyP">
 
+    <uses-feature
+        android:name="android.hardware.fingerprint"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+
     <application
         android:installLocation="internalOnly"
         android:allowBackup="false"

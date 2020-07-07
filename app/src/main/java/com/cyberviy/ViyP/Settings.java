@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.Switch;
@@ -78,14 +79,26 @@ public class Settings extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+    //    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        startActivity(new Intent(this, MLock.class));
+//    }
+
     private void secureCodeMode(boolean state) {
         if (state) {
             //to do False
             //remove copy to clipboard and screenshot ability
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
             Toast.makeText(getApplicationContext(), "Secure code mode: ON", Toast.LENGTH_LONG).show();
         } else {
             //to do true
             //set copy to clipboard and screenshot ability
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
             Toast.makeText(getApplicationContext(), "Secure code mode: OFF", Toast.LENGTH_LONG).show();
         }
     }

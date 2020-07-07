@@ -8,12 +8,16 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricPrompt;
+import androidx.fragment.app.FragmentActivity;
 
 import com.andrognito.pinlockview.IndicatorDots;
 import com.andrognito.pinlockview.PinLockListener;
@@ -23,23 +27,109 @@ import com.himanshurawat.hasher.Hasher;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 //MLock Master Lock
 
 public class MLock extends AppCompatActivity {
-    TextView mlock_tv_greet, mlock_tv_pp;
-    SharedPreferences sharedPreferences = null;
     final String PREFS_NAME = "lock";
     final String PREF_KEY = "firstrun";
     final String TAG = "lock";
     final int DOESNT_EXIST = -1;
+    TextView mlock_tv_greet, mlock_tv_pp;
+    SharedPreferences sharedPreferences = null;
     PinLockView mPinLockView;
     IndicatorDots mIndicatorDots;
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public static void setStatusBarGradiant(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = activity.getWindow();
+            Drawable background = activity.getResources().getDrawable(R.drawable.side_nav_bar);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(activity.getResources().getColor(android.R.color.transparent));
+            window.setNavigationBarColor(activity.getResources().getColor(android.R.color.transparent));
+            window.setBackgroundDrawable(background);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStatusBarGradiant(this);
         setContentView(R.layout.activity_mlock);
+
+//Create a thread pool with a single thread//
+
+        Executor newExecutor = Executors.newSingleThreadExecutor();
+
+        FragmentActivity activity = this;
+
+//Start listening for authentication events//
+
+        final BiometricPrompt myBiometricPrompt = new BiometricPrompt(activity, newExecutor, new BiometricPrompt.AuthenticationCallback() {
+            @Override
+
+//onAuthenticationError is called when a fatal error occurrs//
+
+            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                super.onAuthenticationError(errorCode, errString);
+                if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
+                } else {
+
+//Print a message to Logcat//
+
+                    Log.d(TAG, "An unrecoverable error occurred");
+                }
+            }
+
+//onAuthenticationSucceeded is called when a fingerprint is matched successfully//
+
+            @Override
+            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded(result);
+
+//Print a message to Logcat//
+
+                Log.d(TAG, "Fingerprint recognised successfully");
+            }
+
+//onAuthenticationFailed is called when the fingerprint doesn\’t match//
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+
+//Print a message to Logcat//
+
+                Log.d(TAG, "Fingerprint not recognised");
+            }
+        });
+
+//Create the BiometricPrompt instance//
+
+        final BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+
+//Add some text to the dialog//
+
+                .setTitle("Title text goes here")
+                .setSubtitle("Subtitle goes here")
+                .setDescription("This is the description")
+                .setNegativeButtonText("Cancel")
+
+//Build the dialog//
+
+                .build();
+
+//Assign an onClickListener to the app’s “Authentication” button//
+
+        findViewById(R.id.launchAuthentication).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myBiometricPrompt.authenticate(promptInfo);
+            }
+        });
 
         mlock_tv_greet = findViewById(R.id.mlock_l_tv_greet);
         /*mlock_et_mp = findViewById(R.id.mlock_l_et_mpass);
@@ -100,17 +190,5 @@ public class MLock extends AppCompatActivity {
         };
         mPinLockView.setPinLockListener(mPinLockListener);
         mPinLockView.attachIndicatorDots(mIndicatorDots);
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public static void setStatusBarGradiant(Activity activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = activity.getWindow();
-            Drawable background = activity.getResources().getDrawable(R.drawable.side_nav_bar);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(activity.getResources().getColor(android.R.color.transparent));
-            window.setNavigationBarColor(activity.getResources().getColor(android.R.color.transparent));
-            window.setBackgroundDrawable(background);
-        }
     }
 }

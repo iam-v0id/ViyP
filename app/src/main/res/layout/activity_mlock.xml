@@ -7,6 +7,8 @@
     android:background="@drawable/side_nav_bar"
     tools:context=".MLock">
 
+    <include layout="@layout/layout_auth_bio" />
+
     <TextView
         android:id="@+id/mlock_l_tv_greet"
         android:layout_width="wrap_content"
