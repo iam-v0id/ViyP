@@ -34,6 +34,8 @@
     <!-- Security Preferences -->
     <string name="ask_password_before_launch">Ask password before launch</string>
     <string name="change_master_password">Change master password</string>
+    <string name="secure_code_mode">Secure code mode</string>
+    <string name="scm_description">NOTE: Secure core mode implements more security measures in the app by disabling some functions like copy to clipboard and preventing screenshots in the app</string>
 
     <!-- Data Preferences -->
     <string name="data_export">Export data</string>

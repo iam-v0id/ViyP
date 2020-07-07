@@ -22,6 +22,7 @@ public class Settings extends AppCompatActivity {
     SharedPreferences sharedPreferences = null;
     String PREF_NAME = "Settings";
     String PREF_KEY = "MASTER_PASSWORD";
+    String PREF_KEY_SECURE_CORE_MODE = "SECURE_CORE";
     String NO_DATA = "NO DATA";
     String TYPE_PASS_1 = "PIN";
     String TYPE_PASS_2 = "Password";
@@ -40,34 +41,67 @@ public class Settings extends AppCompatActivity {
         export_data = findViewById(R.id.export_data);
         delete_data = findViewById(R.id.delete_all_data);
         about_app = findViewById(R.id.about_app);
-        final Switch simpleSwitch = findViewById(R.id.ask_password_launch);
-        final boolean switchState = sharedPreferences.getBoolean(PREF_KEY, true);
+        final Switch askPasswordLaunchSwitch = findViewById(R.id.ask_password_launch);
+        final Switch secureCoreModeSwitch = findViewById(R.id.secure_core_mode);
+        final boolean secureCodeModeState = sharedPreferences.getBoolean(PREF_KEY_SECURE_CORE_MODE, false);
+        final boolean askPasswordLaunchState = sharedPreferences.getBoolean(PREF_KEY, true);
         final boolean status = sharedPreferences.getBoolean(NO_DATA, false);
-        simpleSwitch.setChecked(switchState);
+        secureCoreModeSwitch.setChecked(secureCodeModeState);
+        askPasswordLaunchSwitch.setChecked(askPasswordLaunchState);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
-        simpleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        askPasswordLaunchSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     // ask for password
-                    setPassword();
+                    askPassword(true);
                     editor.putBoolean(PREF_KEY, true).apply();
                 } else {
                     // remove password
-                    removePassword();
+                    askPassword(false);
                     editor.putBoolean(PREF_KEY, false).apply();
+                }
+            }
+        });
+        secureCoreModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // Removing
+                    secureCodeMode(true);
+                    editor.putBoolean(PREF_KEY_SECURE_CORE_MODE, true).apply();
+                } else {
+                    secureCodeMode(false);
+                    editor.putBoolean(PREF_KEY_SECURE_CORE_MODE, false).apply();
                 }
             }
         });
     }
 
-    private void setPassword() {
-        Toast.makeText(getApplicationContext(), "SET", Toast.LENGTH_SHORT).show();
+    private void secureCodeMode(boolean state) {
+        if (state) {
+            //to do False
+            //remove copy to clipboard and screenshot ability
+            Toast.makeText(getApplicationContext(), "Secure code mode: ON", Toast.LENGTH_LONG).show();
+        } else {
+            //to do true
+            //set copy to clipboard and screenshot ability
+            Toast.makeText(getApplicationContext(), "Secure code mode: OFF", Toast.LENGTH_LONG).show();
+        }
     }
 
-    private void removePassword() {
-        Toast.makeText(getApplicationContext(), "Removed", Toast.LENGTH_SHORT).show();
+    private void askPassword(boolean state) {
+        if (state) {
+            //to do False
+            //remove copy to clipboard and screenshot ability
+            Toast.makeText(getApplicationContext(), "Password: ON", Toast.LENGTH_LONG).show();
+        } else {
+            //to do true
+            //set copy to clipboard and screenshot ability
+            Toast.makeText(getApplicationContext(), "Password: OFF", Toast.LENGTH_LONG).show();
+        }
     }
+
 
     public void changePassword(View view) {
         TextView PIN = findViewById(R.id.change_master_password_option_1);
