@@ -1,212 +1,218 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/security"
-            android:fontFamily="@font/capriola"
-            android:textColor="@color/colorAccent"
-            android:padding="10dp" />
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="20dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="30dp"
-                android:paddingEnd="5dp"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"
                 android:fontFamily="@font/capriola"
-                android:text="@string/ask_password_before_launch" />
+                android:padding="10dp"
+                android:text="@string/security"
+                android:textColor="@color/colorAccent" />
 
-            <Switch
-                android:id="@+id/ask_password_launch"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/capriola"
+                    android:paddingStart="30dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="5dp"
+                    android:paddingBottom="20dp"
+                    android:text="@string/ask_password_before_launch" />
+
+                <Switch
+                    android:id="@+id/ask_password_launch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:fontFamily="@font/capriola"
+                    android:paddingStart="30dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="5dp"
+                    android:paddingBottom="20dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/change_master_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="30dp"
-                android:paddingEnd="5dp"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
                 android:fontFamily="@font/capriola"
-                android:checked="true" />
+                android:onClick="changePassword"
+                android:paddingStart="30dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="30dp"
+                android:paddingBottom="20dp"
+                android:text="@string/change_master_password" />
+
+            <TextView
+                android:id="@+id/change_master_password_option_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/capriola"
+                android:onClick="changePasswordToPIN"
+                android:paddingStart="50dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="30dp"
+                android:paddingBottom="20dp"
+                android:text="PIN"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/change_master_password_option_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/capriola"
+                android:onClick="changePasswordToPassword"
+                android:paddingStart="50dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="30dp"
+                android:paddingBottom="20dp"
+                android:text="Password"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/capriola"
+                    android:paddingStart="30dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="80dp"
+                    android:paddingBottom="20dp"
+                    android:text="Secure core mode" />
+
+                <Switch
+                    android:id="@+id/secure_core_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:fontFamily="@font/capriola"
+                    android:paddingStart="30dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="5dp"
+                    android:paddingBottom="20dp" />
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                card_view:cardCornerRadius="3dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/capriola"
+                    android:text="@string/scm_description" />
+            </androidx.cardview.widget.CardView>
+
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/change_master_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="30dp"
-            android:paddingEnd="30dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
-            android:fontFamily="@font/capriola"
-            android:onClick="changePassword"
-            android:text="@string/change_master_password" />
-
-        <TextView
-            android:id="@+id/change_master_password_option_1"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="50dp"
-            android:paddingEnd="30dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
-            android:fontFamily="@font/capriola"
-            android:visibility="gone"
-            android:onClick="changePasswordToPIN"
-            android:text="PIN" />
-
-        <TextView
-            android:id="@+id/change_master_password_option_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="50dp"
-            android:paddingEnd="30dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
-            android:fontFamily="@font/capriola"
-            android:visibility="gone"
-            android:onClick="changePasswordToPassword"
-            android:text="Password" />
+            android:layout_height="1dp"
+            android:background="#c1c1c1"
+            android:padding="5dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="20dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="30dp"
-                android:paddingEnd="80dp"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"
                 android:fontFamily="@font/capriola"
-                android:text="Secure core mode" />
+                android:padding="10dp"
+                android:text="@string/data"
+                android:textColor="@color/colorAccent" />
 
-            <Switch
-                android:id="@+id/secure_core_mode"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/export_data"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="30dp"
-                android:paddingEnd="5dp"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
                 android:fontFamily="@font/capriola"
-                android:checked="false" />
+                android:onClick="exportData"
+                android:paddingStart="30dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="5dp"
+                android:paddingBottom="20dp"
+                android:text="@string/data_export" />
+
+            <TextView
+                android:id="@+id/delete_all_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/capriola"
+                android:onClick="deleteData"
+                android:paddingStart="30dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="5dp"
+                android:paddingBottom="20dp"
+                android:text="@string/delete_data" />
         </LinearLayout>
 
-        <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/card_view"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#c1c1c1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            card_view:cardCornerRadius="3dp">
+            android:orientation="vertical"
+            android:padding="20dp">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/capriola"
-                android:text="@string/scm_description" />
-        </androidx.cardview.widget.CardView>
+                android:padding="10dp"
+                android:text="@string/about"
+                android:textColor="@color/colorAccent" />
+
+            <TextView
+                android:id="@+id/about_app"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/capriola"
+                android:onClick="aboutApp"
+                android:paddingStart="30dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="5dp"
+                android:paddingBottom="20dp"
+                android:text="@string/about_app" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:visibility="gone" />
 
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:padding="5dp"
-        android:background="#c1c1c1" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/data"
-            android:textColor="@color/colorAccent"
-            android:fontFamily="@font/capriola"
-            android:padding="10dp" />
-
-        <TextView
-            android:id="@+id/export_data"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="30dp"
-            android:paddingEnd="5dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
-            android:fontFamily="@font/capriola"
-            android:onClick="exportData"
-            android:text="@string/data_export" />
-
-        <TextView
-            android:id="@+id/delete_all_data"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="30dp"
-            android:paddingEnd="5dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
-            android:fontFamily="@font/capriola"
-            android:onClick="deleteData"
-            android:text="@string/delete_data" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#c1c1c1" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/about"
-            android:fontFamily="@font/capriola"
-            android:textColor="@color/colorAccent"
-            android:padding="10dp" />
-
-        <TextView
-            android:id="@+id/about_app"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/capriola"
-            android:paddingStart="30dp"
-            android:paddingEnd="5dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
-            android:onClick="aboutApp"
-            android:text="@string/about_app" />
-    </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_gravity="center_horizontal|center_vertical" />
-
-</LinearLayout>
+</ScrollView>

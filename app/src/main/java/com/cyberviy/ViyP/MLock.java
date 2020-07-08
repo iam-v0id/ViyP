@@ -42,6 +42,7 @@ public class MLock extends AppCompatActivity {
     PinLockView mPinLockView;
     IndicatorDots mIndicatorDots;
 
+    // Gradient on statusbar
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void setStatusBarGradiant(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -60,70 +61,50 @@ public class MLock extends AppCompatActivity {
         setStatusBarGradiant(this);
         setContentView(R.layout.activity_mlock);
 
-//Create a thread pool with a single thread//
-
+        //Create a thread pool with a single thread//
         Executor newExecutor = Executors.newSingleThreadExecutor();
-
         FragmentActivity activity = this;
-
-//Start listening for authentication events//
-
+        //Start listening for authentication events//
         final BiometricPrompt myBiometricPrompt = new BiometricPrompt(activity, newExecutor, new BiometricPrompt.AuthenticationCallback() {
             @Override
-
-//onAuthenticationError is called when a fatal error occurrs//
-
+            //onAuthenticationError is called when a fatal error occurrs//
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
                 if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
                 } else {
-
-//Print a message to Logcat//
-
+                    //Print a message to Logcat//
                     Log.d(TAG, "An unrecoverable error occurred");
                 }
             }
 
-//onAuthenticationSucceeded is called when a fingerprint is matched successfully//
-
+            //onAuthenticationSucceeded is called when a fingerprint is matched successfully//
             @Override
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
-
-//Print a message to Logcat//
+                //Print a message to Logcat//
                 startActivity(new Intent(MLock.this, Home.class));
+                finish();
                 Log.d(TAG, "Fingerprint recognised successfully");
             }
 
-//onAuthenticationFailed is called when the fingerprint doesn\’t match//
-
+            //onAuthenticationFailed is called when the fingerprint doesn\’t match//
             @Override
             public void onAuthenticationFailed() {
                 super.onAuthenticationFailed();
-
-//Print a message to Logcat//
-
+                //Print a message to Logcat//
                 Log.d(TAG, "Fingerprint not recognised");
             }
         });
-
-//Create the BiometricPrompt instance//
-
+        //Create the BiometricPrompt instance//
         final BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
-
-//Add some text to the dialog//
-
+                //Add some text to the dialog//
                 .setTitle("Title text goes here")
                 .setSubtitle("Subtitle goes here")
                 .setDescription("This is the description")
                 .setNegativeButtonText("Cancel")
-
-//Build the dialog//
-
+                //Build the dialog//
                 .build();
-
-//Assign an onClickListener to the app’s “Authentication” button//
-
+        //Assign an onClickListener to the app’s “Authentication” button//
         findViewById(R.id.launchAuthentication).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

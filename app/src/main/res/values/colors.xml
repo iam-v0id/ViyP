@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="red">#B00</color>
-    <color name="green">#A0BA</color>
     <color name="yellow">#FDD036</color>
     <color name="jd_red">#CB0000</color>
     <color name="jd_light">#E5001F</color>
@@ -16,7 +14,6 @@
 
     <color name="colorPrimary">#13ADC1</color>
     <color name="colorPrimaryDark">#0095A8</color>
-    <color name="light_button">#20d2bb</color>
     <color name="colorAccent">#FDD036</color>
     <color name="primary_text">#FFFFFF</color>
     <color name="icons">#FFFFFF</color>

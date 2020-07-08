@@ -30,35 +30,57 @@
 
         <TextView
             android:id="@+id/modify_old_password"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="@dimen/text_view_size"
             android:gravity="center"
+            android:text="****"
             android:fontFamily="@font/capriola"
-            android:textSize="@dimen/text_medium_size"
-            android:layout_marginBottom="10dp" />
+            android:textSize="@dimen/text_medium_size" />
+
+        <TextView
+            android:id="@+id/show_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="SHOW" />
     </LinearLayout>
 
-
-    <EditText
-        android:id="@+id/modify_new_password"
+    <Button
+        android:id="@+id/change_password_button"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/text_view_size"
-        android:maxLines="1"
-        android:hint="New password"
-        android:inputType="textPassword"
-        android:maxLength="32"
-        android:autofillHints="false" />
-
-    <CheckBox
-        android:id="@+id/modify_show_password"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show password"
+        android:background="@drawable/btn_shape_capsule_safe"
         android:fontFamily="@font/capriola"
-        android:layout_marginBottom="12dp"
-        android:layout_marginTop="12dp"
-        android:checked="false" />
+        android:layout_margin="2dp"
+        android:text="Change password" />
 
+    <LinearLayout
+        android:id="@+id/change_password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/modify_new_password"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/text_view_size"
+            android:maxLines="1"
+            android:hint="New password"
+            android:inputType="textPassword"
+            android:maxLength="32"
+            android:autofillHints="false" />
+
+        <CheckBox
+            android:id="@+id/modify_show_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show password"
+            android:fontFamily="@font/capriola"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="12dp"
+            android:checked="false" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -83,6 +105,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/capriola"
+            android:textColor="@color/white"
             android:background="@drawable/btn_shape_capsule_danger"
             android:layout_weight="1"
             android:layout_margin="2dp"

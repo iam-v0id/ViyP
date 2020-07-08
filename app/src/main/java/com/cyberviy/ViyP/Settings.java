@@ -83,11 +83,6 @@ public class Settings extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
     }
-    //    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        startActivity(new Intent(this, MLock.class));
-//    }
 
     private void secureCodeMode(boolean state) {
         if (state) {

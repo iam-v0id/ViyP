@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -17,7 +16,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Add extends Activity implements View.OnClickListener {
-    // TODO remove LOGS
     Blob blob = null;
     private static final String PREFS_NAME = "lock";
     public static final String EXTRA_PROVIDER = "com.cyberviy.ViyP.EXTRA_PROVIDER";
@@ -44,10 +42,8 @@ public class Add extends Activity implements View.OnClickListener {
 
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         String provider = getIntent().getStringExtra(EXTRA_PROVIDER);
+        assert provider != null;
         switch (provider) {
-            case "password":
-                email.setHint("Email");
-                break;
             case "social":
                 email.setHint("Username/Email");
                 break;
@@ -87,11 +83,11 @@ public class Add extends Activity implements View.OnClickListener {
             password.requestFocus();
             return;
         }
-        String regex_email = "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$";
+        String regex_email = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
         Pattern pattern = Pattern.compile(regex_email);
         Matcher matcher = pattern.matcher(text_email);
         //TODO Change if
-        if (matcher.matches()) {
+        if (!matcher.matches()) {
             email.setError("Enter valid email");
             email.requestFocus();
             return;
@@ -103,17 +99,10 @@ public class Add extends Activity implements View.OnClickListener {
         // AES UTILS ENC and DEC
         try {
             String encPass = AESUtils.encrypt(text_password);
-            Log.i("ENCRYPTING", encPass);
             intent.putExtra(EXTRA_ENCRYPT, encPass);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //String encPass = CryptoLight.encrypt(this, text_password);
-        //intent.putExtra(EXTRA_ENCRYPT, encPass);
-
-        //Toast.makeText(getApplicationContext(), encPass, Toast.LENGTH_SHORT).show();
-        //Log.d("Add", "Email " + text_email + "Enc Password " + encPass);
-
         setResult(RESULT_OK, intent);
         finish();
     }
