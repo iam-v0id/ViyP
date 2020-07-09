@@ -23,14 +23,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Password  "
+            android:text="Password"
             android:fontFamily="@font/capriola"
             android:layout_gravity="center"
             android:textSize="@dimen/text_medium_size" />
 
         <TextView
             android:id="@+id/modify_old_password"
-            android:layout_width="150dp"
+            android:layout_width="130dp"
             android:layout_height="@dimen/text_view_size"
             android:gravity="center"
             android:text="****"

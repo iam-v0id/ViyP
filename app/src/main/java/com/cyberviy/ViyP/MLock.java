@@ -98,9 +98,9 @@ public class MLock extends AppCompatActivity {
         //Create the BiometricPrompt instance//
         final BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
                 //Add some text to the dialog//
-                .setTitle("Title text goes here")
-                .setSubtitle("Subtitle goes here")
-                .setDescription("This is the description")
+                .setTitle("Fingerprint Auth")
+                .setSubtitle("Authenticate with your biometrics")
+                .setDescription("Place your finger on the sensor to authenticate")
                 .setNegativeButtonText("Cancel")
                 //Build the dialog//
                 .build();

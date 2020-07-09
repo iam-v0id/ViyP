@@ -17,8 +17,8 @@
         android:padding="16dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
             android:id="@+id/image"
             android:src="@mipmap/ic_launcher" />
 
@@ -38,6 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLength="24"
+                android:fontFamily="@font/capriola"
                 android:gravity="center"
                 android:text="admin@ViyP" />
 
@@ -49,6 +50,7 @@
                 android:textSize="@dimen/text_medium_size"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/capriola"
                 android:text="Mail" />
             <!--            <TextView-->
             <!--                android:id="@+id/imp_cat2"-->

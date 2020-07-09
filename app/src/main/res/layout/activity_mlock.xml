@@ -31,12 +31,12 @@
         app:dotDiameter="30dp"
         app:dotEmptyBackground="@drawable/dot_empty"
         app:dotFilledBackground="@drawable/dot_filled"
-        app:dotSpacing="14dp"
+        app:dotSpacing="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.296" />
+        app:layout_constraintVertical_bias="0.3" />
 
     <com.andrognito.pinlockview.PinLockView
         android:id="@+id/pin_lock_view"

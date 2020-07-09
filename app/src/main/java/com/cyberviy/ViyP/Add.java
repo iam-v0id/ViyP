@@ -21,8 +21,10 @@ import java.util.regex.Pattern;
 public class Add extends Activity implements View.OnClickListener {
     Blob blob = null;
     String providerNameString;
-    String[] providersEmail = {"Gmail", "Outlook", "Protonmail", "Yahoo", "AppleID", "Other"};
-    String[] providersSocial = {"Facebook", "Instagram", "Pinterest", "Other"};
+    String[] providersEmail = {"Gmail", "Outlook", "Amazon", "Protonmail", "Yahoo", "Apple", "Paypal",
+            "Github", "Spotify", "Stackoverflow", "Trello", "Wordpress", "Other"};
+    String[] providersSocial = {"Facebook", "Instagram", "Twitter", "Medium", "Flickr", "Foursquare",
+            "Reddit", "Slack", "Snapchat", "Tinder", "Linkedin", "Pinterest", "Tumblr", "Other"};
     private static final String PREFS_NAME = "lock";
     public static final String EXTRA_PROVIDER_NAME = "com.cyberviy.ViyP.EXTRA_PROVIDER_NAME";
     public static final String EXTRA_PROVIDER = "com.cyberviy.ViyP.EXTRA_PROVIDER";
