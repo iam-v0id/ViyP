@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.cyberviy.ViyP.AESUtils;
 import com.cyberviy.ViyP.R;
 import com.cyberviy.ViyP.models.ViyCred;
 
@@ -31,8 +32,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(viewHolder holder, int position) {
         ViyCred creds = credsList.get(position);
-        holder.provider.setText(creds.getProvider());
-        holder.cat1.setText(creds.getEmail());
+        holder.provider.setText(creds.getProviderName());
+        try {
+            String dec = creds.getEmail();
+            String decEmail = AESUtils.decrypt(dec);
+            holder.cat1.setText(decEmail);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //holder.cat1.setText(creds.getEmail());
         //holder.cat2.setText(creds.getCat2());
     }
 

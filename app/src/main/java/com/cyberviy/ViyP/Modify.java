@@ -1,5 +1,6 @@
 package com.cyberviy.ViyP;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,14 +13,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-public class Modify extends AppCompatActivity implements View.OnClickListener {
+public class Modify extends Activity implements View.OnClickListener {
     //TODO Clear LOGS
 
     EditText newPassword;
     TextView emailText, oldPassword, showPassword;
-    String prov, email, passwd, decPass;
+    String provName, email, passwd, decPass;
     CheckBox checkBox;
     Button changePasswordButton, updateBtn, deleteBtn;
     SharedPreferences sharedPreferences = null;
@@ -27,6 +26,7 @@ public class Modify extends AppCompatActivity implements View.OnClickListener {
     private static final String PREFS_NAME = "lock";
     public static final String TAG = "MODIFY";
     public static final String EXTRA_DELETE = "DELETE";
+    public static final String EXTRA_PROVIDER_NAME = "com.cyberviy.ViyP.EXTRA_PROVIDER_NAME";
     public static final String EXTRA_ID = "com.cyberviy.ViyP.EXTRA_ID";
     public static final String EXTRA_ENCRYPT = "com.cyberviy.ViyP.EXTRA_ENCRYPT";
     public static final String EXTRA_EMAIL = "com.cyberviy.ViyP.EXTRA_EMAIL";
@@ -50,14 +50,16 @@ public class Modify extends AppCompatActivity implements View.OnClickListener {
         updateBtn.setEnabled(false);
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         String sha = sharedPreferences.getString("hash", "0");
-        Intent intent = getIntent();
-        email = intent.getStringExtra(EXTRA_EMAIL);
-        emailText.setText(email);
 
         //DECRYPT
+        Intent intent = getIntent();
+        provName = intent.getStringExtra(EXTRA_PROVIDER_NAME);
+        email = intent.getStringExtra(EXTRA_EMAIL);
         passwd = intent.getStringExtra(EXTRA_ENCRYPT);
         try {
+            String decEmail = AESUtils.decrypt(email);
             decPass = AESUtils.decrypt(passwd);
+            emailText.setText(decEmail);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -131,6 +133,7 @@ public class Modify extends AppCompatActivity implements View.OnClickListener {
             return;
         }
         Intent intent = new Intent();
+        intent.putExtra(EXTRA_PROVIDER_NAME, provName);
         intent.putExtra(EXTRA_EMAIL, email);
         try {
             String encPass = AESUtils.encrypt(text_new_password);

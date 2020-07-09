@@ -6,10 +6,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import java.sql.Blob;
 import java.util.regex.Matcher;
@@ -17,7 +20,11 @@ import java.util.regex.Pattern;
 
 public class Add extends Activity implements View.OnClickListener {
     Blob blob = null;
+    String providerNameString;
+    String[] providersEmail = {"Gmail", "Outlook", "Protonmail", "Yahoo", "AppleID", "Other"};
+    String[] providersSocial = {"Facebook", "Instagram", "Pinterest", "Other"};
     private static final String PREFS_NAME = "lock";
+    public static final String EXTRA_PROVIDER_NAME = "com.cyberviy.ViyP.EXTRA_PROVIDER_NAME";
     public static final String EXTRA_PROVIDER = "com.cyberviy.ViyP.EXTRA_PROVIDER";
     public static final String EXTRA_ENCRYPT = "com.cyberviy.ViyP.EXTRA_ENCRYPT";
     public static final String EXTRA_EMAIL = "com.cyberviy.ViyP.EXTRA_EMAIL";
@@ -26,6 +33,7 @@ public class Add extends Activity implements View.OnClickListener {
     private EditText email, password;
     private CheckBox checkBox;
     Button add_button;
+    Spinner providerName;
     SharedPreferences sharedPreferences = null;
 
 
@@ -35,6 +43,7 @@ public class Add extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_add);
 
         //ProgressBar progressBar = findViewById(R.id.progress_bar);
+        providerName = findViewById(R.id.provider_name);
         email = findViewById(R.id.add_email);
         password = findViewById(R.id.add_password);
         checkBox = findViewById(R.id.add_show_password);
@@ -46,15 +55,45 @@ public class Add extends Activity implements View.OnClickListener {
         switch (provider) {
             case "social":
                 email.setHint("Username/Email");
+                ArrayAdapter arrayAdapterSocial = new ArrayAdapter(this, android.R.layout.simple_spinner_item, providersSocial);
+                arrayAdapterSocial.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                //Setting the ArrayAdapter data on the Spinner
+                providerName.setAdapter(arrayAdapterSocial);
+                providerName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        providerNameString = parent.getItemAtPosition(position).toString();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
                 break;
             case "wifi":
+                providerName.setVisibility(View.GONE);
                 email.setHint("SSID");
                 break;
             default:
                 email.setHint("Email");
+                ArrayAdapter arrayAdapterEmail = new ArrayAdapter(this, android.R.layout.simple_spinner_item, providersEmail);
+                arrayAdapterEmail.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                //Setting the ArrayAdapter data on the Spinner
+                providerName.setAdapter(arrayAdapterEmail);
+                providerName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        providerNameString = parent.getItemAtPosition(position).toString();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
                 break;
         }
-        add_button.setOnClickListener(this);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -65,6 +104,8 @@ public class Add extends Activity implements View.OnClickListener {
                 }
             }
         });
+
+        add_button.setOnClickListener(this);
     }
 
     private void save_data() {
@@ -92,13 +133,15 @@ public class Add extends Activity implements View.OnClickListener {
             email.requestFocus();
             return;
         }
-        //Encryption of password
         Intent intent = new Intent();
-        intent.putExtra(EXTRA_EMAIL, text_email);
+        intent.putExtra(EXTRA_PROVIDER_NAME, providerNameString);
+        //intent.putExtra(EXTRA_EMAIL, text_email);
 
         // AES UTILS ENC and DEC
         try {
+            String encEmail = AESUtils.encrypt(text_email);
             String encPass = AESUtils.encrypt(text_password);
+            intent.putExtra(EXTRA_EMAIL, encEmail);
             intent.putExtra(EXTRA_ENCRYPT, encPass);
         } catch (Exception e) {
             e.printStackTrace();

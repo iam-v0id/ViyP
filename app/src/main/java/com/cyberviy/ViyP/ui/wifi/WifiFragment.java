@@ -66,19 +66,8 @@ public class WifiFragment extends Fragment {
         final RecyclerViewAdapter viewAdapter = new RecyclerViewAdapter();
         recyclerView.setAdapter(viewAdapter);
 
-//        recyclerView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                TextView textView = v.findViewById(R.id.imp_cat);
-//                String email = textView.getText().toString();
-//                Intent intent = new Intent(getActivity(), Modify.class);
-//                intent.putExtra("Email", email);
-//                startActivityForResult(intent, MODIFY_RECORD);
-//            }
-//        });
 
         wifiViewModel = new ViewModelProvider(this).get(WifiViewModel.class);
-        //passwordViewModel = ViewModelProviders.of(this).get(PasswordViewModel.class);
         wifiViewModel.getAllWifi().observe(getViewLifecycleOwner(), new Observer<List<ViyCred>>() {
             @Override
             public void onChanged(List<ViyCred> viyCreds) {
@@ -92,6 +81,7 @@ public class WifiFragment extends Fragment {
                 Log.d(TAG, "Onclick");
                 Intent intent = new Intent(getActivity(), Modify.class);
                 intent.putExtra(Modify.EXTRA_ID, viyCred.getId());
+                intent.putExtra(Modify.EXTRA_PROVIDER_NAME, viyCred.getProviderName());
                 intent.putExtra(Modify.EXTRA_EMAIL, viyCred.getEmail());
                 intent.putExtra(Modify.EXTRA_ENCRYPT, viyCred.getCat());
                 startActivityForResult(intent, MODIFY_RECORD);
@@ -115,7 +105,7 @@ public class WifiFragment extends Fragment {
             String enc_passwd = data.getStringExtra(Add.EXTRA_ENCRYPT);
             String enc_email = data.getStringExtra(Add.EXTRA_EMAIL);
 
-            ViyCred viyCred = new ViyCred(PROVIDER, enc_email, enc_passwd);
+            ViyCred viyCred = new ViyCred(PROVIDER, PROVIDER, enc_email, enc_passwd);
             Log.d(TAG, "Provider: " + PROVIDER + " EMAIL: " + enc_email + " ENC_DATA: " + enc_passwd);
             //For showing "No data" or not on activity if the list is empty
             SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(PROVIDER, Context.MODE_PRIVATE);
@@ -131,7 +121,7 @@ public class WifiFragment extends Fragment {
             }
             String enc_passwd = data.getStringExtra(Modify.EXTRA_ENCRYPT);
             String enc_email = data.getStringExtra(Modify.EXTRA_EMAIL);
-            ViyCred viyCred = new ViyCred(PROVIDER, enc_email, enc_passwd);
+            ViyCred viyCred = new ViyCred(PROVIDER, PROVIDER, enc_email, enc_passwd);
             //IMP
             viyCred.setId(id);
             if (!data.getBooleanExtra(Modify.EXTRA_DELETE, false)) {

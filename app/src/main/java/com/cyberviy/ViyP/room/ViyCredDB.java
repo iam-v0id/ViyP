@@ -11,7 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.cyberviy.ViyP.models.ViyCred;
 
-@Database(entities = {ViyCred.class}, version = 4)
+@Database(entities = {ViyCred.class}, version = 5)
 public abstract class ViyCredDB extends RoomDatabase {
 
     private static ViyCredDB instance;

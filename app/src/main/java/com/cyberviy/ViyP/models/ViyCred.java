@@ -11,16 +11,39 @@ public class ViyCred {
 
     private String provider;
 
+    private String providerName;
+
     private String email;
 
     private String cat;
 
 
-    public ViyCred(String provider, String email, String cat) {
+    public ViyCred(String provider, String providerName, String email, String cat) {
         this.provider = provider;
+        this.providerName = providerName;
         this.email = email;
         this.cat = cat;
 
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public String getProviderName() {
+        return providerName;
+    }
+
+    public void setProviderName(String providerName) {
+        this.providerName = providerName;
     }
 
     public String getEmail() {
@@ -29,18 +52,6 @@ public class ViyCred {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getProvider() {
-        return provider;
     }
 
     public String getCat() {

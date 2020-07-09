@@ -19,6 +19,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.cyberviy.ViyP.managers.PrefManager;
+
 public class Welcome extends AppCompatActivity {
 
     private ViewPager viewPager;

@@ -28,7 +28,7 @@
         <activity
             android:name=".Modify"
             android:label="Modify password"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
         <activity android:name=".Help" />
         <activity android:name=".wifi" />
         <activity

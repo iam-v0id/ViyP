@@ -95,6 +95,7 @@ public class SocialFragment extends Fragment {
                 Log.d(TAG, "Onclick");
                 Intent intent = new Intent(getActivity(), Modify.class);
                 intent.putExtra(Modify.EXTRA_ID, viyCred.getId());
+                intent.putExtra(Modify.EXTRA_PROVIDER_NAME, viyCred.getProviderName());
                 intent.putExtra(Modify.EXTRA_EMAIL, viyCred.getEmail());
                 intent.putExtra(Modify.EXTRA_ENCRYPT, viyCred.getCat());
                 startActivityForResult(intent, MODIFY_RECORD);
@@ -115,9 +116,10 @@ public class SocialFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == ADD_RECORD && resultCode == RESULT_OK) {
+            String providerName = data.getStringExtra(Modify.EXTRA_PROVIDER_NAME);
             String enc_passwd = data.getStringExtra(Add.EXTRA_ENCRYPT);
             String enc_email = data.getStringExtra(Add.EXTRA_EMAIL);
-            ViyCred viyCred = new ViyCred(PROVIDER, enc_email, enc_passwd);
+            ViyCred viyCred = new ViyCred(PROVIDER, providerName, enc_email, enc_passwd);
             Log.d(TAG, "Provider: " + PROVIDER + " EMAIL: " + enc_email + " ENC_DATA: " + enc_passwd);
             //For showing "No data" or not on activity if the list is empty
             SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(PROVIDER, Context.MODE_PRIVATE);
@@ -131,9 +133,10 @@ public class SocialFragment extends Fragment {
                 Toast.makeText(getContext(), "Cannot be updated!", Toast.LENGTH_LONG).show();
                 return;
             }
+            String providerName = data.getStringExtra(Modify.EXTRA_PROVIDER_NAME);
             String enc_passwd = data.getStringExtra(Modify.EXTRA_ENCRYPT);
             String enc_email = data.getStringExtra(Modify.EXTRA_EMAIL);
-            ViyCred viyCred = new ViyCred(PROVIDER, enc_email, enc_passwd);
+            ViyCred viyCred = new ViyCred(PROVIDER, providerName, enc_email, enc_passwd);
             //IMP
             viyCred.setId(id);
             if (!data.getBooleanExtra(Modify.EXTRA_DELETE, false)) {
