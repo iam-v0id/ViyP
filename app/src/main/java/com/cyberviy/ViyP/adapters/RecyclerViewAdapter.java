@@ -62,13 +62,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             case "Linkedin":
                 holder.providerImage.setImageResource(R.drawable.linkedin);
                 break;
-            case "medium":
+            case "Medium":
                 holder.providerImage.setImageResource(R.drawable.medium);
                 break;
             case "Paypal":
                 holder.providerImage.setImageResource(R.drawable.paypal);
                 break;
-            case "pinterest":
+            case "Pinterest":
                 holder.providerImage.setImageResource(R.drawable.pinterest);
                 break;
             case "Reddit":

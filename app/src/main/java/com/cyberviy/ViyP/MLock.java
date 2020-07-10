@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,13 +16,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.andrognito.pinlockview.IndicatorDots;
 import com.andrognito.pinlockview.PinLockListener;
 import com.andrognito.pinlockview.PinLockView;
-import com.himanshurawat.hasher.HashType;
-import com.himanshurawat.hasher.Hasher;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -47,11 +45,10 @@ public class MLock extends AppCompatActivity {
     public static void setStatusBarGradiant(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = activity.getWindow();
-            Drawable background = activity.getResources().getDrawable(R.drawable.side_nav_bar);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(activity.getResources().getColor(android.R.color.transparent));
-            window.setNavigationBarColor(activity.getResources().getColor(android.R.color.transparent));
-            window.setBackgroundDrawable(background);
+            window.setStatusBarColor(ContextCompat.getColor(activity, R.color.colorPrimary));
+            //window.setStatusBarColor(activity.getResources().getColor(android.R.color.transparent));
+            //window.setNavigationBarColor(activity.getResources().getColor(android.R.color.transparent));
         }
     }
 
@@ -132,12 +129,9 @@ public class MLock extends AppCompatActivity {
             public void onComplete(String pin) {
 
                 if (sharedPreferences.getBoolean(PREF_KEY, true)) {
-                    String Hash = Hasher.Companion.hash(pin, HashType.SHA_512);
-                    Log.d(TAG, Hash);
                     String HASH = new String(Hex.encodeHex(DigestUtils.sha512(pin)));
-                    String string = "z3r0" + HASH + "423viyP";
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("hash", string).apply();
+                    editor.putString("hash", HASH).apply();
                     //Log.d(TAG, string);
                     sharedPreferences.edit().putBoolean(PREF_KEY, false).apply();
                     Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_SHORT).show();
@@ -145,9 +139,8 @@ public class MLock extends AppCompatActivity {
                     finish();
                 } else {
                     String sp = sharedPreferences.getString("hash", "0");
-                    String check = sp.substring(4);
                     String HASH = new String(Hex.encodeHex(DigestUtils.sha512(pin)));
-                    if (check.equals(HASH + "423viyP")) {
+                    if (sp.equals(HASH)) {
                         Toast.makeText(getApplicationContext(), "Successful login", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), Home.class));
                         finish();

@@ -26,7 +26,7 @@ public class Settings extends AppCompatActivity {
     String PREF_KEY_SECURE_CORE_MODE = "SECURE_CORE";
     String NO_DATA = "NO DATA";
     String TYPE_PASS_1 = "PIN";
-    String TYPE_PASS_2 = "Password";
+    String TYPE_PASS_2 = "PASSWORD";
     TextView change_password, export_data, delete_data, about_app;
 
     @Override
