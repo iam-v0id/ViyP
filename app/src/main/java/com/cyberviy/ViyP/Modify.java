@@ -6,10 +6,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,6 +24,8 @@ public class Modify extends Activity implements View.OnClickListener {
     CheckBox checkBox;
     Button changePasswordButton, updateBtn, deleteBtn;
     SharedPreferences sharedPreferences = null;
+    String PREF_NAME = "Settings";
+    String PREF_KEY_SECURE_CORE_MODE = "SECURE_CORE";
     LinearLayout newPasswordLayout;
     private static final String PREFS_NAME = "lock";
     public static final String TAG = "MODIFY";
@@ -49,6 +53,18 @@ public class Modify extends Activity implements View.OnClickListener {
 
         updateBtn.setEnabled(false);
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+
+        sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        if (sharedPreferences.getBoolean(PREF_KEY_SECURE_CORE_MODE, false)) {
+            try {
+                ImageButton copyImage = findViewById(R.id.copy);
+                copyImage.setEnabled(false);
+            } catch (Exception e) {
+                e.getStackTrace();
+            }
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        }
+
         String sha = sharedPreferences.getString("hash", "0");
 
         //DECRYPT

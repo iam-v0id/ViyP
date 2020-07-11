@@ -4,10 +4,12 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +34,9 @@ public class Home extends AppCompatActivity {
     private static final String ALPHA = "abcdefghijklmnopqrstuvwxyz";
     private static final String NUMERIC = "0123456789";
     private static final String SPECIAL_CHARS = "!@#$%^&*_=+-";*/
+    SharedPreferences sharedPreferences;
+    String PREF_NAME = "Settings";
+    String PREF_KEY_SECURE_CORE_MODE = "SECURE_CORE";
     private static final String COLLECTION = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*_=+-";
     //TODO Generate password from add activity
 
@@ -46,6 +51,18 @@ public class Home extends AppCompatActivity {
         View view = navigationView.getHeaderView(0);
         ImageButton imageButton = view.findViewById(R.id.refresh);
         final TextView textView1 = view.findViewById(R.id.generate_password);
+
+        sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        if (sharedPreferences.getBoolean(PREF_KEY_SECURE_CORE_MODE, false)) {
+            try {
+                ImageButton copyImage = findViewById(R.id.copy);
+                copyImage.setEnabled(false);
+            } catch (Exception e) {
+                e.getStackTrace();
+            }
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        }
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -83,6 +100,12 @@ public class Home extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
     }
 
     @Override

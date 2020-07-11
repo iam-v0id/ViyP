@@ -24,6 +24,8 @@ public class Settings extends AppCompatActivity {
     String PREF_NAME = "Settings";
     String PREF_KEY = "MASTER_PASSWORD";
     String PREF_KEY_SECURE_CORE_MODE = "SECURE_CORE";
+    String PREF_KEY_SCM_COPY = "SCM_COPY";
+    String PREF_KEY_SCM_SCREENSHOTS = "SCM_SCREENSHOTS";
     String NO_DATA = "NO DATA";
     String TYPE_PASS_1 = "PIN";
     String TYPE_PASS_2 = "PASSWORD";
@@ -38,6 +40,8 @@ public class Settings extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+
+
         change_password = findViewById(R.id.change_master_password);
         export_data = findViewById(R.id.export_data);
         delete_data = findViewById(R.id.delete_all_data);
@@ -85,14 +89,18 @@ public class Settings extends AppCompatActivity {
     }
 
     private void secureCodeMode(boolean state) {
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
         if (state) {
             //to do False
             //remove copy to clipboard and screenshot ability
+
+            editor.putBoolean(PREF_KEY_SCM_COPY, false).apply();
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
             Toast.makeText(getApplicationContext(), "Secure code mode: ON", Toast.LENGTH_LONG).show();
         } else {
             //to do true
             //set copy to clipboard and screenshot ability
+            editor.putBoolean(PREF_KEY_SCM_SCREENSHOTS, true).apply();
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
             Toast.makeText(getApplicationContext(), "Secure code mode: OFF", Toast.LENGTH_LONG).show();
         }

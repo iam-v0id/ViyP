@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +46,8 @@ public class SocialFragment extends Fragment {
     private static final int MODIFY_RECORD = 2;
     private static final int DELETE_RECORD = 3;
     public static final String PROVIDER = "social";
+    String PREF_NAME = "Settings";
+    String PREF_KEY_SECURE_CORE_MODE = "SECURE_CORE";
     TextView empty;
 
 
@@ -56,6 +60,17 @@ public class SocialFragment extends Fragment {
         FloatingActionButton fab = root.findViewById(R.id.fab);
         empty = root.findViewById(R.id.empty);
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(PROVIDER, Context.MODE_PRIVATE);
+        SharedPreferences sp = this.getActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        if (sp.getBoolean(PREF_KEY_SECURE_CORE_MODE, false)) {
+            try {
+                ImageButton copyImage = root.findViewById(R.id.copy);
+                copyImage.setEnabled(false);
+            } catch (Exception e) {
+                e.getStackTrace();
+            }
+            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        }
+
         status = sharedPreferences.getBoolean(NO_DATA, false);
         if (status) {
             empty.setVisibility(View.GONE);
@@ -68,18 +83,6 @@ public class SocialFragment extends Fragment {
         //recyclerView.addItemDecoration(new DividerItemDecoration(this.getContext(), LinearLayoutManager.VERTICAL));
         final RecyclerViewAdapter viewAdapter = new RecyclerViewAdapter();
         recyclerView.setAdapter(viewAdapter);
-
-//        recyclerView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d(TAG, "Onclick");
-//                TextView textView = v.findViewById(R.id.imp_cat);
-//                String email = textView.getText().toString();
-//                Intent intent = new Intent(getActivity(), Modify.class);
-//                intent.putExtra("Email", email);
-//                startActivityForResult(intent, MODIFY_RECORD);
-//            }
-//        });
 
         socialViewModel = new ViewModelProvider(this).get(SocialViewModel.class);
         socialViewModel.getAllSocial().observe(getViewLifecycleOwner(), new Observer<List<ViyCred>>() {

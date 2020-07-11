@@ -7,8 +7,10 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -29,7 +31,8 @@ public class ChangePassActivity extends AppCompatActivity {
     String old_password, new_password_1, new_password_2;
     String TYPE_PASSWORD;
     SharedPreferences sharedPreferences = null;
-
+    String PREF_NAME = "Settings";
+    String PREF_KEY_SECURE_CORE_MODE = "SECURE_CORE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,17 @@ public class ChangePassActivity extends AppCompatActivity {
         submit = findViewById(R.id.submit);
 
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+
+        sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        if (sharedPreferences.getBoolean(PREF_KEY_SECURE_CORE_MODE, false)) {
+            try {
+                ImageButton copyImage = findViewById(R.id.copy);
+                copyImage.setEnabled(false);
+            } catch (Exception e) {
+                e.getStackTrace();
+            }
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        }
 
         TYPE_PASSWORD = getIntent().getStringExtra(EXTRA_TYPE_PASS);
 

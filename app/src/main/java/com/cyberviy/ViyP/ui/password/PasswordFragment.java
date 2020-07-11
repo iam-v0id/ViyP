@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +51,8 @@ public class PasswordFragment extends Fragment {
     private static final String PROVIDER = "mail";
     private static final String TAG = "P FRAG ";
     public static final String NO_DATA = "NO DATA";
+    String PREF_NAME = "Settings";
+    String PREF_KEY_SECURE_CORE_MODE = "SECURE_CORE";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +61,18 @@ public class PasswordFragment extends Fragment {
         FloatingActionButton fab = root.findViewById(R.id.fab);
         empty = root.findViewById(R.id.empty);
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(PROVIDER, Context.MODE_PRIVATE);
+
+        SharedPreferences sp = this.getActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        if (sp.getBoolean(PREF_KEY_SECURE_CORE_MODE, false)) {
+            try {
+                ImageButton copyImage = root.findViewById(R.id.copy);
+                copyImage.setEnabled(false);
+            } catch (Exception e) {
+                e.getStackTrace();
+            }
+            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        }
+
         status = sharedPreferences.getBoolean(NO_DATA, false);
         if (status) {
             empty.setVisibility(View.GONE);

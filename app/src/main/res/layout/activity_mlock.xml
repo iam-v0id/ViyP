@@ -16,8 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="15dp"
-            app:civ_border_width="2dp"
+            android:layout_margin="10dp"
+            app:civ_border_width="1dp"
             android:src="@drawable/ic_launcher_foreground" />
 
         <TextView
@@ -28,7 +28,7 @@
             android:text="@string/mlock_st_master_password_greet"
             android:textColor="@color/primary_text"
             android:textSize="15sp"
-            android:layout_margin="20dp"
+            android:layout_margin="15dp"
             android:layout_gravity="center" />
 
         <com.andrognito.pinlockview.IndicatorDots
@@ -40,7 +40,7 @@
             app:dotFilledBackground="@drawable/dot_filled"
             android:layout_gravity="center"
             app:dotSpacing="12dp"
-            android:layout_margin="30dp" />
+            android:layout_margin="20dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,7 +58,7 @@
                 app:keypadTextColor="@color/primary_text"
                 app:keypadTextSize="16dp"
                 app:keypadVerticalSpacing="16dp"
-                android:layout_margin="20dp"
+                android:layout_margin="15dp"
                 android:layout_gravity="center" />
         </LinearLayout>
 

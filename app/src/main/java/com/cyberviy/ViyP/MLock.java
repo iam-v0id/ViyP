@@ -129,10 +129,10 @@ public class MLock extends AppCompatActivity {
             public void onComplete(String pin) {
 
                 if (sharedPreferences.getBoolean(PREF_KEY, true)) {
+
                     String HASH = new String(Hex.encodeHex(DigestUtils.sha512(pin)));
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("hash", HASH).apply();
-                    //Log.d(TAG, string);
                     sharedPreferences.edit().putBoolean(PREF_KEY, false).apply();
                     Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(), Home.class));
@@ -148,7 +148,6 @@ public class MLock extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Wrong password", Toast.LENGTH_LONG).show();
                     }
                 }
-                //Log.d(TAG, "Pin complete: " + pin);
 
             }
 
