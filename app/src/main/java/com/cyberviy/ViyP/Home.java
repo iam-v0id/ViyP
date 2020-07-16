@@ -29,7 +29,7 @@ import java.util.Random;
 
 public class Home extends AppCompatActivity {
 
-    private AppBarConfiguration mAppBarConfiguration;
+    private static final String COLLECTION = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*_=+-";
     /*private static final String ALPHA_CAPS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String ALPHA = "abcdefghijklmnopqrstuvwxyz";
     private static final String NUMERIC = "0123456789";
@@ -37,7 +37,7 @@ public class Home extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     String PREF_NAME = "Settings";
     String PREF_KEY_SECURE_CORE_MODE = "SECURE_CORE";
-    private static final String COLLECTION = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*_=+-";
+    private AppBarConfiguration mAppBarConfiguration;
     //TODO Generate password from add activity
 
     @Override
@@ -54,12 +54,6 @@ public class Home extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
         if (sharedPreferences.getBoolean(PREF_KEY_SECURE_CORE_MODE, false)) {
-            try {
-                ImageButton copyImage = findViewById(R.id.copy);
-                copyImage.setEnabled(false);
-            } catch (Exception e) {
-                e.getStackTrace();
-            }
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         }
 
@@ -127,14 +121,22 @@ public class Home extends AppCompatActivity {
     }
 
     public void copy(View view) {
-        TextView textView = findViewById(R.id.generate_password);
-        String gn_password = textView.getText().toString().trim();
-        ClipboardManager clipboard = (ClipboardManager)
-                getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText("Password", gn_password);
-        if (clipboard != null) {
-            clipboard.setPrimaryClip(clip);
-            Toast.makeText(getApplicationContext(), "Copied!", Toast.LENGTH_SHORT).show();
+
+        sharedPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        if (sharedPreferences.getBoolean(PREF_KEY_SECURE_CORE_MODE, false)) {
+            ImageButton copyImage = findViewById(R.id.copy);
+            copyImage.setEnabled(false);
+            Toast.makeText(this, "Secure code mode is Enabled. Copying is not allowed  ", Toast.LENGTH_SHORT).show();
+        } else {
+            TextView textView = findViewById(R.id.generate_password);
+            String gn_password = textView.getText().toString().trim();
+            ClipboardManager clipboard = (ClipboardManager)
+                    getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("Password", gn_password);
+            if (clipboard != null) {
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(getApplicationContext(), "Copied!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
