@@ -1,5 +1,6 @@
 package com.cyberviy.ViyP.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -154,6 +155,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     if (listener != null && pos != RecyclerView.NO_POSITION) {
                         listener.onItemClick(credsList.get(pos));
                     }
+                }
+            });
+            view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Log.d("OnLongClick", "Long Click");
+                    return false;
                 }
             });
         }
