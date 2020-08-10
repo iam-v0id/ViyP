@@ -104,7 +104,8 @@ public class ChangePassActivity extends AppCompatActivity {
         //Fetching hash from sharedPref
         String PREF_VAL = sharedPreferences.getString(PREF, "0");
         Log.d(PREF, PREF_VAL);
-        String HASH = new String(Hex.encodeHex(DigestUtils.sha512(old_password)));
+        String HASH = new String(Hex.encodeHex(DigestUtils.sha(old_password)));
+        //String HASH = new String(Hex.encodeHex(DigestUtils.sha512(old_password)));
         Log.d(PREF, HASH);
         if (!PREF_VAL.equals(HASH)) {
             old_password_et.requestFocus();
@@ -120,7 +121,7 @@ public class ChangePassActivity extends AppCompatActivity {
     }
 
     private void savePassword(String password) {
-        String HASH = new String(Hex.encodeHex(DigestUtils.sha512(password)));
+        String HASH = new String(Hex.encodeHex(DigestUtils.sha(password)));
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("hash", HASH).apply();
     }

@@ -170,7 +170,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public interface onItemClickListener {
         void onItemClick(ViyCred viyCred);
     }
-
     public void setOnItemClickListener(onItemClickListener listener) {
         this.listener = listener;
     }

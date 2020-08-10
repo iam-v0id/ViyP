@@ -130,7 +130,7 @@ public class MLock extends AppCompatActivity {
 
                 if (sharedPreferences.getBoolean(PREF_KEY, true)) {
 
-                    String HASH = new String(Hex.encodeHex(DigestUtils.sha512(pin)));
+                    String HASH = new String(Hex.encodeHex(DigestUtils.sha(pin)));
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("hash", HASH).apply();
                     sharedPreferences.edit().putBoolean(PREF_KEY, false).apply();
@@ -139,7 +139,7 @@ public class MLock extends AppCompatActivity {
                     finish();
                 } else {
                     String sp = sharedPreferences.getString("hash", "0");
-                    String HASH = new String(Hex.encodeHex(DigestUtils.sha512(pin)));
+                    String HASH = new String(Hex.encodeHex(DigestUtils.sha(pin)));
                     if (sp.equals(HASH)) {
                         Toast.makeText(getApplicationContext(), "Successful login", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), Home.class));

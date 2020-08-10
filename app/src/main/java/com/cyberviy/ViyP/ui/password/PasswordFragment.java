@@ -94,12 +94,8 @@ public class PasswordFragment extends Fragment {
                 viewAdapter.setCreds(viyCreds);
             }
         });
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                return 0;
-            }
 
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -110,7 +106,8 @@ public class PasswordFragment extends Fragment {
                 passwordViewModel.delete(viewAdapter.getCredAt(viewHolder.getAdapterPosition()));
                 Toast.makeText(getContext(), "Entry deleted", Toast.LENGTH_SHORT).show();
             }
-        }).attachToRecyclerView(recyclerView);
+        };
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
         viewAdapter.setOnItemClickListener(new RecyclerViewAdapter.onItemClickListener() {
             @Override
@@ -123,6 +120,7 @@ public class PasswordFragment extends Fragment {
                 startActivityForResult(intent, MODIFY_RECORD);
             }
         });
+        // viewAdapter.SetOnLongClickListener(onL)
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
