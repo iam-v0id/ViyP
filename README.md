@@ -34,4 +34,4 @@
 - We are open source, That means full transparency.
 
 # SCREENSHOTS
- <img src=https://github.com/iam-v0id/ViyP/blob/master/Screenshots/1.png width="310" height="600">  <img src=https://github.com/iam-v0id/ViyP/blob/master/Screenshots/2.png width="310" height="600">  <img src=https://github.com/iam-v0id/ViyP/blob/master/Screenshots/5.png width="310" height="600"> 
+ <img src=https://github.com/iam-v0id/ViyP/blob/master/Screenshots/1.png width="300" height="600">  <img src=https://github.com/iam-v0id/ViyP/blob/master/Screenshots/2.png width="300" height="600">  <img src=https://github.com/iam-v0id/ViyP/blob/master/Screenshots/5.png width="300" height="600"> 
