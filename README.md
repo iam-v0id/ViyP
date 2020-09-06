@@ -27,10 +27,11 @@
 - Now you can use Fingerprint instead of master password.
 
 **7) DELIGHTFUL UI**
-- Simple UI, easy to use.
-- Light weight.
+- Simple and Light weight UI.
+- Easy to use.
 
 **8) OPEN SOURCE**
 - We are open source, That means full transparency.
 
 # SCREENSHOTS
+ <img src=https://github.com/iam-v0id/ViyP/blob/master/Screenshots/1.png width="310" height="600">  <img src=https://github.com/iam-v0id/ViyP/blob/master/Screenshots/2.png width="310" height="600">  <img src=https://github.com/iam-v0id/ViyP/blob/master/Screenshots/5.png width="310" height="600"> 
