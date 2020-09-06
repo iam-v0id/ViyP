@@ -5,7 +5,7 @@
   <img src="https://github.com/suryaviyyapu/ViyP/blob/master/app/src/main/ic_launcher-playstore.png">  
 </p>
 
-### FEATURES
+# FEATURES
 **1) STORE PASSWORDS**
 - The easiest way to store your passwords for every website you visit.
 
