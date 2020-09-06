@@ -20,14 +20,14 @@
 - Ristricts from taking Screenshots inside the app.
 - Disables copy to clipboard functionality.
 
-**4) RANDOM PASSWORD GENERATOR**
+**5) RANDOM PASSWORD GENERATOR**
 - Generates strong passwords and makes your life easy.
 
-**4) FINGERPRINT AUTHENTICATION**
+**6) FINGERPRINT AUTHENTICATION**
 - Now you can use Fingerprint instead of master password.
 
-**4) DELIGHTFUL UI**
+**7) DELIGHTFUL UI**
 - Simple UI, easy to use.
 
-**4) OPEN SOURCE**
+**8) OPEN SOURCE**
 - We are open source, That means full transparency.
