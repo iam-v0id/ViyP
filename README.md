@@ -28,6 +28,7 @@
 
 **7) DELIGHTFUL UI**
 - Simple UI, easy to use.
+- Light weight.
 
 **8) OPEN SOURCE**
 - We are open source, That means full transparency.
