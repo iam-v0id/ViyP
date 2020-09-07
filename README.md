@@ -33,5 +33,8 @@
 **8) OPEN SOURCE**
 - We are open source, That means full transparency.
 
+# CREDITS:
+- <a href="https://github.com/iam-v0id">SUHAAS KORAMPALLY</a> for making README.md file.
+
 # SCREENSHOTS
  <img src=https://github.com/iam-v0id/ViyP/blob/master/Screenshots/1.png width="270" height="565">  <img src=https://github.com/iam-v0id/ViyP/blob/master/Screenshots/5.png width="270" height="565">  <img src=https://github.com/iam-v0id/ViyP/blob/master/Screenshots/2.png width="270" height="565"> 
