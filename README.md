@@ -1,7 +1,7 @@
 <p align="left">
   <a><img title="Built With Love" src="https://forthebadge.com/images/badges/built-with-love.svg" ></a>
  </p>
- <p align="center">
+ <p align="left">
   <img src="https://github.com/iam-v0id/ViyP/blob/master/Screenshots/image.png">  
 </p>
 
