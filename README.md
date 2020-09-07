@@ -2,7 +2,7 @@
   <a><img title="Built With Love" src="https://forthebadge.com/images/badges/built-with-love.svg" ></a>
  </p>
  <p align="center">
-  <img src="https://github.com/suryaviyyapu/ViyP/blob/master/app/src/main/ic_launcher-playstore.png">  
+  <img src="https://github.com/iam-v0id/ViyP/blob/master/Screenshots/image.png">  
 </p>
 
 # FEATURES
